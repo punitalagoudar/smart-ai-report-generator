@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}Create Account | ReportAI{% endblock %}
+{% block content %}
+
+<div class="auth-page-wrapper">
+    <div class="auth-visual-decoration"></div>
+
+    <div class="auth-card glass-card animate__animated animate__fadeInUp">
+        <div class="auth-header">
+            <div class="brand-symbol registration">
+                <i class="fas fa-user-plus"></i>
+            </div>
+            <h1>Join ReportAI</h1>
+            <p>Start generating audit-ready reports with AI</p>
+        </div>
+
+        <form method="POST" class="auth-form">
+            <div class="input-group">
+                <label for="email">Work Email</label>
+                <div class="input-wrapper">
+                    <i class="far fa-envelope"></i>
+                    <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label for="password">Password</label>
+                <div class="input-wrapper">
+                    <i class="far fa-lock"></i>
+                    <input type="password" id="password" name="password" placeholder="Min. 8 characters" required>
+                </div>
+                <div class="password-strength">
+                    <div class="strength-bar"></div>
+                </div>
+            </div>
+
+            <button type="submit" class="auth-btn">
+                <span>Create Account</span>
+                <i class="fas fa-sparkles"></i>
+            </button>
+        </form>
+
+        <p class="terms-text">
+            By signing up, you agree to our <a href="#">Terms of Service</a>.
+        </p>
+
+        <div class="auth-footer">
+            <p>Already a member? <a href="{{ url_for('login') }}">Sign in here</a></p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

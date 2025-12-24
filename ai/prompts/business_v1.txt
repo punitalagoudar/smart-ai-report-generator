@@ -1,0 +1,12 @@
+Generate a business-oriented report on the topic: {topic}
+
+STRUCTURE:
+1. Executive Summary
+2. Problem Overview
+3. Proposed Solution
+4. Business Benefits
+5. Conclusion
+
+RULES:
+- Clear and concise
+- Non-technical language

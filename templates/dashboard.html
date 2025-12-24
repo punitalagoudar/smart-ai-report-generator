@@ -1,0 +1,124 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | ReportAI{% endblock %}
+{% block content %}
+
+<div class="dashboard-header animate__animated animate__fadeInDown">
+    <div>
+        <h1 class="page-title">Analytics Overview</h1>
+        <p class="text-muted">Monitor your AI generation performance and history</p>
+    </div>
+    <a href="{{ url_for('generate') }}" class="btn-primary">
+        <i class="fas fa-plus"></i> Create New Report
+    </a>
+</div>
+
+<div class="stats-grid animate__animated animate__fadeInUp">
+    <div class="stat-card glass-card">
+        <div class="stat-icon blue"><i class="fas fa-file-alt"></i></div>
+        <div class="stat-info">
+            <span class="stat-label">Total Reports</span>
+            <strong class="stat-value">{{ total_reports }}</strong>
+        </div>
+    </div>
+
+    <div class="stat-card glass-card">
+        <div class="stat-icon green"><i class="fas fa-check-double"></i></div>
+        <div class="stat-info">
+            <span class="stat-label">Avg Quality</span>
+            <strong class="stat-value">{{ avg_quality }}%</strong>
+        </div>
+    </div>
+
+    <div class="stat-card glass-card">
+        <div class="stat-icon purple"><i class="fas fa-bolt"></i></div>
+        <div class="stat-info">
+            <span class="stat-label">Avg Gen Time</span>
+            <strong class="stat-value">{{ avg_generation_time }} <small>ms</small></strong>
+        </div>
+    </div>
+
+    <div class="stat-card glass-card">
+        <div class="stat-icon orange"><i class="fas fa-terminal"></i></div>
+        <div class="stat-info">
+            <span class="stat-label">Primary Prompt</span>
+            <strong class="stat-value">{{ most_used_prompt }}</strong>
+        </div>
+    </div>
+</div>
+
+<div class="table-container glass-card animate__animated animate__fadeInUp" style="animation-delay: 0.2s;">
+    <div class="table-header">
+        <h3><i class="fas fa-history"></i> Recent Generations</h3>
+    </div>
+
+    {% if reports %}
+    <div class="table-responsive">
+        <table class="modern-table">
+            <thead>
+                <tr>
+                    <th>Report Details</th>
+                    <th>Model & Version</th>
+                    <th>Quality</th>
+                    <th>AI Confidence</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for report in reports %}
+                <tr>
+                    <td>
+                        <div class="report-meta">
+                            <span class="report-title">{{ report.title }}</span>
+                            <span class="report-topic">{{ report.topic }}</span>
+                            <span class="report-date"><i class="far fa-calendar-alt"></i> {{ report.created_at.strftime('%d %b %Y') }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="badge-group">
+                            <span class="badge model">{{ report.model_used.split('/')[-1] }}</span>
+                            <span class="badge version">v{{ report.version }}</span>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="quality-cell">
+                            <span class="quality-num">{{ report.quality_score }}%</span>
+                            <div class="progress-bar"><div class="progress" style="width: {{ report.quality_score }}%"></div></div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="confidence-tag">
+                            <i class="fas fa-brain"></i> {{ (report.ai_confidence * 100)|round(0) }}%
+                        </div>
+                    </td>
+                    <td>
+                        <span class="status-pill {{ report.validation_status|lower }}">
+                            {{ report.validation_status }}
+                        </span>
+                    </td>
+                    <td class="actions-cell">
+                        <a href="{{ url_for('download', report_id=report.id) }}" class="action-btn download" title="Download PDF">
+                            <i class="fas fa-download"></i>
+                        </a>
+                        <a href="{{ url_for('generate', topic=report.topic) }}" class="action-btn refresh" title="Regenerate">
+                            <i class="fas fa-sync-alt"></i>
+                        </a>
+                        <a href="{{ url_for('delete_report', report_id=report.id) }}" class="action-btn delete" 
+                           onclick="return confirm('Delete this report forever?')" title="Delete">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <div class="empty-state">
+        <i class="fas fa-folder-open"></i>
+        <p>No reports found. Start by generating your first AI report!</p>
+    </div>
+    {% endif %}
+</div>
+
+{% endblock %}

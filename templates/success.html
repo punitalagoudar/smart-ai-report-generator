@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Success | ReportAI{% endblock %}
+{% block content %}
+
+<div class="success-wrapper animate__animated animate__zoomIn">
+    <div class="glass-card success-card">
+        
+        <div class="success-icon-container">
+            <div class="confetti-burst"></div>
+            <div class="icon-circle">
+                <i class="fas fa-check"></i>
+            </div>
+        </div>
+
+        <div class="success-text">
+            <h2>Report Ready!</h2>
+            <p class="text-muted">Your document has been generated, validated, and archived with a <strong>full AI audit trail</strong>.</p>
+        </div>
+
+        <div class="success-mini-stats">
+            <div class="m-stat">
+                <i class="fas fa-shield-alt"></i>
+                <span>Verified Audit</span>
+            </div>
+            <div class="m-stat">
+                <i class="fas fa-file-pdf"></i>
+                <span>PDF Ready</span>
+            </div>
+        </div>
+
+        <div class="success-actions">
+            <a href="{{ url_for('dashboard') }}" class="btn-primary">
+                <i class="fas fa-chart-pie"></i> View in Dashboard
+            </a>
+            <a href="{{ url_for('generate') }}" class="btn-secondary">
+                <i class="fas fa-plus"></i> Create Another
+            </a>
+        </div>
+        
+        <div class="success-footer">
+            <p>Need to find it later? It's always available in your <a href="{{ url_for('profile') }}">Profile</a>.</p>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

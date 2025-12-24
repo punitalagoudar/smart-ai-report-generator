@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}Login | ReportAI{% endblock %}
+{% block content %}
+
+<div class="auth-page-container">
+    <div class="auth-page-wrapper animate__animated animate__fadeIn">
+        <div class="glass-card auth-card">
+            <div class="auth-header">
+                <div class="auth-icon-circle">
+                    <i class="fas fa-lock"></i>
+                </div>
+                <h2>Welcome Back</h2>
+                <p class="text-muted">Enter your credentials to access your reports</p>
+            </div>
+
+            <form method="POST" class="modern-form">
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="name@company.com" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="password"><i class="fas fa-key"></i> Password</label>
+                    <input type="password" id="password" name="password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary full-width">
+                    <span>Sign In</span> <i class="fas fa-arrow-right"></i>
+                </button>
+            </form>
+
+            <div class="auth-footer">
+                <p>New to ReportAI? <a href="{{ url_for('register') }}">Create an account</a></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

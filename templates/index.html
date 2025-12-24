@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}Create Report | ReportAI{% endblock %}
+{% block content %}
+
+<div class="generator-container">
+    <div class="text-center animate__animated animate__fadeIn">
+        <h1 class="page-title">Generate New Report</h1>
+        <p class="text-muted">Transform your ideas into professional documents in seconds</p>
+    </div>
+
+    <div class="glass-card generator-card animate__animated animate__fadeInUp">
+        <form method="POST" id="reportForm" class="modern-form">
+            
+            <div class="form-group">
+                <label for="title"><i class="fas fa-heading"></i> Report Title</label>
+                <input type="text" id="title" name="title" placeholder="e.g., Impact of Machine Learning" required>
+                <small class="input-hint">Give your report a catchy, formal title.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="topic"><i class="fas fa-lightbulb"></i> Main Topic</label>
+                <input type="text" id="topic" name="topic" placeholder="e.g., Renewable Energy Trends 2024" required>
+                <small class="input-hint">The AI uses this to research and generate content.</small>
+            </div>
+
+            <div class="form-group">
+                <label for="format"><i class="fas fa-layer-group"></i> Document Template</label>
+                <div class="select-wrapper">
+                    <select name="format" id="format" required>
+                        <option value="college">🎓 Academic / College Standard</option>
+                        <option value="ieee">📘 IEEE Research Paper</option>
+                        <option value="simple">📄 Simple Executive Summary</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" id="generateBtn" class="btn-primary full-width">
+                    <span id="btnText">🚀 Start AI Generation</span>
+                </button>
+            </div>
+        </form>
+
+        <div id="loaderOverlay" class="loader-overlay hidden">
+            <div class="loader-content">
+                <div class="ai-brain-animation">
+                    <div class="pulse"></div>
+                    <i class="fas fa-brain"></i>
+                </div>
+                <h3>AI is Thinking...</h3>
+                <p id="loadingStatus">Analyzing sections and validating data quality</p>
+                <div class="loading-bar">
+                    <div class="loading-progress"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const form = document.getElementById("reportForm");
+    const loader = document.getElementById("loaderOverlay");
+    const btn = document.getElementById("generateBtn");
+    const statusText = document.getElementById("loadingStatus");
+
+    const statuses = [
+        "Connecting to Mistral AI...",
+        "Drafting Introduction...",
+        "Structuring Problem Statement...",
+        "Evaluating Solution feasibility...",
+        "Finalizing Conclusion & PDF...",
+        "Applying IEEE Formatting..."
+    ];
+
+    form.addEventListener("submit", () => {
+      btn.disabled = true;
+      loader.classList.remove("hidden");
+      loader.classList.add("active");
+
+      // Dynamic Status Text cycling
+      let i = 0;
+      setInterval(() => {
+        statusText.innerText = statuses[i % statuses.length];
+        i++;
+      }, 3000);
+    });
+  });
+</script>
+
+{% endblock %}

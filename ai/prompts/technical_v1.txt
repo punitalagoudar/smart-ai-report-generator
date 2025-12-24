@@ -1,0 +1,13 @@
+Generate a technical report for engineers on the topic: {topic}
+
+STRUCTURE:
+1. Overview
+2. Technical Challenges
+3. System Design
+4. Implementation Details
+5. Conclusion
+
+RULES:
+- Focus on implementation
+- Use technical clarity
+- Avoid theory overload

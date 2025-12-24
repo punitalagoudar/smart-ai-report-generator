@@ -1,0 +1,104 @@
+{% extends "base.html" %}
+{% block title %}My Profile | ReportAI{% endblock %}
+{% block content %}
+
+<div class="profile-container animate__animated animate__fadeIn">
+    <div class="profile-header glass-card">
+        <div class="user-avatar">
+            <i class="fas fa-user-astronaut"></i>
+        </div>
+        <div class="user-meta">
+            <h1 class="user-email">{{ user.email }}</h1>
+            <div class="badge-group">
+                <span class="badge tier">Pro User</span>
+                <span class="badge active">Active since {{ user.reports[0].created_at.strftime('%b %Y') if user.reports else 'Today' }}</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="profile-grid">
+        <div class="profile-sidebar">
+            <div class="glass-card compact-card">
+                <h3><i class="fas fa-id-card"></i> Account Info</h3>
+                <div class="info-item">
+                    <label>Account ID</label>
+                    <span>#USR-00{{ user.id }}</span>
+                </div>
+                <div class="info-item">
+                    <label>Email</label>
+                    <span>{{ user.email }}</span>
+                </div>
+                <div class="info-item">
+                    <label>Subscription</label>
+                    <span class="text-primary">Free Tier</span>
+                </div>
+                <hr>
+                <div class="profile-actions">
+                    <a href="{{ url_for('logout') }}" class="btn-outline logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="profile-main">
+            <div class="glass-card">
+                <div class="section-title">
+                    <h3><i class="fas fa-chart-line"></i> Report Activity</h3>
+                </div>
+                
+                <div class="mini-stats">
+                    <div class="mini-stat-card">
+                        <span class="m-label">Total Reports</span>
+                        <span class="m-value">{{ total_reports }}</span>
+                    </div>
+                    <div class="mini-stat-card">
+                        <span class="m-label">Last Generated</span>
+                        <span class="m-value">{{ last_report_date }}</span>
+                    </div>
+                    <div class="mini-stat-card">
+                        <span class="m-label">Top Topic</span>
+                        <span class="m-value">{{ most_used_topic }}</span>
+                    </div>
+                </div>
+
+                <div class="section-title mt-4">
+                    <h3><i class="fas fa-brain"></i> AI Performance Metrics</h3>
+                </div>
+
+                {% if total_reports > 0 %}
+                <div class="ai-metrics-grid">
+                    <div class="metric-box">
+                        <div class="metric-circle" style="--percent: {{ avg_quality }}">
+                            <span class="metric-num">{{ avg_quality }}%</span>
+                        </div>
+                        <span class="metric-label">Avg Quality</span>
+                    </div>
+
+                    <div class="metric-details">
+                        <div class="detail-row">
+                            <i class="fas fa-stopwatch"></i>
+                            <div>
+                                <strong>{{ avg_generation_time }} ms</strong>
+                                <span>Avg Generation Time</span>
+                            </div>
+                        </div>
+                        <div class="detail-row">
+                            <i class="fas fa-code-branch"></i>
+                            <div>
+                                <strong>{{ most_used_prompt }}</strong>
+                                <span>Favorite Template</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% else %}
+                <div class="empty-stats-msg">
+                    <p>Start generating to see your AI efficiency metrics.</p>
+                    <a href="{{ url_for('generate') }}" class="btn-primary btn-sm">Generate Now</a>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
