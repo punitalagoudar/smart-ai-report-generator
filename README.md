@@ -2,6 +2,8 @@
 
 A production-ready AI-powered web application that generates structured academic, technical, and business reports using Large Language Models.
 
+This project demonstrates end-to-end development of a secure, AI-powered SaaS-style application, covering backend logic, authentication, API integration, and cloud deployment.
+
 🔗 **Live Demo**: https://smart-ai-report-generator.onrender.com
 
 ---
@@ -29,7 +31,7 @@ A production-ready AI-powered web application that generates structured academic
 
 ## ⚙️ How It Works
 1. User selects report type and topic
-2. AI generates structured content
+2. AI generates structured content using selected LLM models
 3. Content is validated and scored
 4. Final report is generated and downloadable
 
@@ -49,17 +51,15 @@ cd smart-ai-report-generator
 pip install -r requirements.txt
 set OPENAI_API_KEY=your_api_key
 python main.py
-
 ```
 ## 📈 Future Enhancements
-
-PostgreSQL database
-
-Role-based access
-
-Usage analytics
-
-Subscription plans
+- PostgreSQL database for persistent storage
+- Role-based access control
+- Usage analytics and performance metrics
+- Subscription plans and usage limits
+  
+## 📄 License
+This project is licensed under the MIT License.
 
 ## 👨‍💻 Author
 
